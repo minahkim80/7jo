@@ -5,7 +5,7 @@ public class Mitne {
 	public static void main(String[] args) {
 		System.out.println("우리가 젤 잘할꺼임");
 		System.out.println("프로젝트 잘합시다^^");
-//?
+for (int 
 	}
 
 }
