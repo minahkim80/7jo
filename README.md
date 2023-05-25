@@ -1,3 +1,2 @@
-# 7jo
-  광호야 놀자
-System.out.println("!")
+# 7j
+7조 화이팅
