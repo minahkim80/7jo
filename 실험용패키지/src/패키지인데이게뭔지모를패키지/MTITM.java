@@ -6,7 +6,8 @@ public class MTITM {
 		for(int i=0; i<10; i++) {
 			System.out.print(20%3+i);
 			
-			//이광호 테스트
+			int x = (int) (Math.random()*250);
+			int y = (int) (Math.random()*250);
 			
 		}
 
