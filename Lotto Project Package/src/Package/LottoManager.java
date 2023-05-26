@@ -115,22 +115,21 @@ public class LottoManager {
 	}
 
 	public ArrayList<Integer> getWinnerNumbers() {
+		// 임의의 1등 추첨번호랑 보너스번호 7을 생성
 		ArrayList<Integer> winnerNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
 
 		return winnerNumbers;
 	}
 
 	public LottoTicket createLottoTicket(int[] numbers) {
+
+		// 선택한 값을 받아서 숫자 6개의 로또 티켓을 생성함 입력값이 없으면 자동, 입력값이 6개이면 수동이 되는거임
 		ArrayList<Integer> inputNumber = new ArrayList<>();
 
 		for (int i = 0; i < numbers.length; i++) {
 			inputNumber.add(numbers[i]);
 		}
 
-//		for (int i = 0; i < 6 - numbers.length; i++) {
-//			int number = (int) (Math.random() * 45) + 1;
-//			inputNumber.add(number);
-//		}
 		while (inputNumber.size() < 6) {
 			int number = (int) (Math.random() * 45) + 1;
 			if (!inputNumber.contains(number)) {

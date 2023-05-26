@@ -51,7 +51,7 @@ public class MyFrame extends JFrame {
 		contentPane.add(pnlLottoNum);
 		pnlLottoNum.setLayout(new GridLayout(9, 5));
 
-		// 45개의 로또 번호 버튼배열입니다
+		// 45개의 로또 번호 버튼배열
 		ArrayList<JButton> buttons = new ArrayList<>();
 
 		for (int i = 1; i <= 45; i++) {
@@ -106,7 +106,7 @@ public class MyFrame extends JFrame {
 //배열에 입력된 6개의 값을 우측에 뿌려줌
 		JButton btnPlus = new JButton("등록");
 		panel.add(btnPlus);
-//자동선택시 사용자 입력값이 0인 상태로 run()메소드 호출
+//자동선택시 사용자 입력값이 0인 상태로 createLottoTicket()메소드 호출
 		JButton btnPayment = new JButton("자동 선택");
 		btnPayment.setBounds(34, 25, 132, 104);
 		contentPane.add(btnPayment);
