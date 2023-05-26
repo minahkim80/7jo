@@ -15,18 +15,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class BuyFrame1 extends JFrame {
+public class MyFrame extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * 앱실행
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BuyFrame1 frame = new BuyFrame1();
+					MyFrame frame = new MyFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,9 +36,9 @@ public class BuyFrame1 extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * 프레임 생성
 	 */
-	public BuyFrame1() {
+	public MyFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 894, 450);
 		contentPane = new JPanel();
@@ -103,15 +103,15 @@ public class BuyFrame1 extends JFrame {
 			}
 		});
 		panel.add(btnResetList);
-
+//배열에 입력된 6개의 값을 우측에 뿌려줌
 		JButton btnPlus = new JButton("등록");
 		panel.add(btnPlus);
-
+//자동선택시 사용자 입력값이 0인 상태로 run()메소드 호출
 		JButton btnPayment = new JButton("자동 선택");
 		btnPayment.setBounds(34, 25, 132, 104);
 		contentPane.add(btnPayment);
 		btnPayment.setFont(new Font("굴림", Font.PLAIN, 20));
-
+//버튼 누르면 결과 확인으로 바뀜
 		JButton btnPayment_1 = new JButton("결제하기");
 		btnPayment_1.setFont(new Font("굴림", Font.PLAIN, 20));
 		btnPayment_1.setBounds(733, 316, 95, 59);
@@ -130,7 +130,7 @@ public class BuyFrame1 extends JFrame {
 		JButton btnNewButton = new JButton("New button");
 		btnNewButton.setBounds(379, 342, 67, 33);
 		contentPane.add(btnNewButton);
-
+		// 구매 장 수 선택 메롱탭
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(294, 344, 67, 31);
 		contentPane.add(comboBox);

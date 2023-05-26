@@ -13,11 +13,12 @@ public class LottoManager {
 		this.scanner = new Scanner(System.in);
 	}
 
+//프로그램 동작
 	public void run() {
 		ArrayList<LottoTicket> lottoTickets = new ArrayList<>();
-
+		// 실제 버튼식 입력을 받기 때문에 변동 될 함수임
 		int count = 0;
-		while (count < 5) {
+		while (count < 5) { // 5장 까지 구매 할 수 있으니까
 			System.out.print("  Step" + (count + 1) + ". 번호 입력 : ");
 			String numberString = scanner.nextLine();
 			int[] numbers = new int[0];
@@ -25,10 +26,10 @@ public class LottoManager {
 			if (numberString.isEmpty()) {
 
 			} else {
+				// 사용자가 입력한 값을 스페이스바(빈칸) 기준으로 나눔
 				String[] numberStrings = numberString.split(" ");
 				numbers = Stream.of(numberStrings).mapToInt(Integer::parseInt).toArray();
 			}
-			// System.out.println("length : " + numbers.length);
 
 			LottoTicket lottoTicket = createLottoTicket(numbers);
 
@@ -40,6 +41,7 @@ public class LottoManager {
 
 		for (int i = 0; i < lottoTickets.size(); i++) {
 			ArrayList<Integer> correctNumbers = checkLottoTicket(lottoTickets.get(i));
+			// 요녀석으로 색을 바꾸게 해줄꺼임
 			System.out.println("맞춘 번호 : " + correctNumbers);
 		}
 
