@@ -21,24 +21,27 @@ public class Packgproject {
 	
 		System.out.println("[로또 발표]");
 		// 당첨 번호 랜덤 생성
-		winningNumber = lottoNumberCreate();
-		int[] bonusNumber = BonusNumberCreate(winningNumber);
-		
-
-		int bonus = bonusNumber[0];
-		
-		
-		for (int i = 0; i < winningNumber.length; i++) {
-			if (i == 0) {
-				System.out.printf(" \t%02d", winningNumber[i]);
-			} else if (i < winningNumber.length - 1) {
-				System.out.printf(",%02d", winningNumber[i]);
-			} else {
-				System.out.printf(",%02d, + %02d  \n",winningNumber[i],bonus);
-				
-			}
-		
-		}
+		int winningNumber1[] = {3, 5, 24, 32, 10, 9,};
+		int bon = 9; 
+		System.out.println("로또 당첨 번호 : "+Arrays.toString(winningNumber1) +" + "+ bon);
+//		winningNumber = lottoNumberCreate();
+//		int[] bonusNumber = BonusNumberCreate(winningNumber);
+//		
+//
+//		int bonus = bonusNumber[0];
+//		
+//		
+//		for (int i = 0; i < winningNumber.length; i++) {
+//			if (i == 0) {
+//				System.out.printf(" \t%02d", winningNumber[i]);
+//			} else if (i < winningNumber.length - 1) {
+//				System.out.printf(",%02d", winningNumber[i]);
+//			} else {
+//				System.out.printf(",%02d, + %02d  \n",winningNumber[i],bonus);
+//				
+//			}
+//		
+//		}
 
 		// 당첨 번호와 구매 로또 번호를 비교하여 숫자 일치 여부 판단
 		System.out.println("[내 로또 결과]");
@@ -48,7 +51,7 @@ public class Packgproject {
 
 			for (int j = 0; j < outputNumber.length; j++) {
 				for (int k = 0; k < outputNumber.length; k++) {
-					if (outputNumber[j] == winningNumber[k]) {
+					if (outputNumber[j] == winningNumber1[k]) {
 						cnt++;
 					}
 				}
@@ -74,7 +77,7 @@ public class Packgproject {
 		int[] inputNumber = new int[6];
 
 		for (int i = 0; i < inputNumber.length; i++) {
-			inputNumber[i] = (int) (Math.random() * 50) + 1;
+			inputNumber[i] = (int) (Math.random() * 45) + 1;
 			// 증복 제거
 			for (int j = 0; j < i; j++) {
 				if (inputNumber[i] == inputNumber[j]) {
@@ -86,13 +89,13 @@ public class Packgproject {
 		}
 		Arrays.sort(inputNumber);
 		return inputNumber;
-	}
+	} //보너스 번호
 	public static int[] BonusNumberCreate(int[] inputNumber) {
 		int[] bonusNum = new int[1];
 
 		for (int i = 0; i < bonusNum.length; i++) {
-			bonusNum[i] = (int) (Math.random() * 50) + 1;
-			// 증복 제거
+			bonusNum[i] = (int) (Math.random() * 45) + 1;
+			//중복 제
 			for (int j = 0; j < i; j++) {
 				if (bonusNum[i] == inputNumber[j]) {
 					i--;
