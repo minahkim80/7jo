@@ -1,4 +1,4 @@
-package Package;
+package lotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,14 +8,23 @@ import java.util.stream.Stream;
 
 public class LottoManager {
 	Scanner scanner;
+	ArrayList<LottoTicket> lottoTickets;
 
 	LottoManager() {
 		this.scanner = new Scanner(System.in);
+		lottoTickets = new ArrayList<>();
 	}
 
-//프로그램 동작
+	public ArrayList<LottoTicket> getLottoTickets() {
+		return lottoTickets;
+	}
+
+	public void setLottoTickets(ArrayList<LottoTicket> lottoTickets) {
+		this.lottoTickets = lottoTickets;
+	}
+
+	// 프로그램 동작
 	public void run() {
-		ArrayList<LottoTicket> lottoTickets = new ArrayList<>();
 		// 실제 버튼식 입력을 받기 때문에 변동 될 함수임
 		int count = 0;
 		while (count < 5) { // 5장 까지 구매 할 수 있으니까
@@ -31,11 +40,11 @@ public class LottoManager {
 				numbers = Stream.of(numberStrings).mapToInt(Integer::parseInt).toArray();
 			}
 
-			LottoTicket lottoTicket = createLottoTicket(numbers);
+//			LottoTicket lottoTicket = createLottoTicket(numbers);
+//
+//			lottoTickets.add(lottoTicket);
 
-			lottoTickets.add(lottoTicket);
-
-			System.out.println("lottoTicket : " + lottoTicket.getInputNumber());
+			// System.out.println("lottoTicket : " + lottoTicket.getInputNumber());
 			count++;
 		}
 
@@ -121,13 +130,13 @@ public class LottoManager {
 		return winnerNumbers;
 	}
 
-	public LottoTicket createLottoTicket(int[] numbers) {
+	public LottoTicket createLottoTicket(ArrayList<Integer> numbers) {
 
 		// 선택한 값을 받아서 숫자 6개의 로또 티켓을 생성함 입력값이 없으면 자동, 입력값이 6개이면 수동이 되는거임
 		ArrayList<Integer> inputNumber = new ArrayList<>();
 
-		for (int i = 0; i < numbers.length; i++) {
-			inputNumber.add(numbers[i]);
+		for (int i = 0; i < numbers.size(); i++) {
+			inputNumber.add(numbers.get(i));
 		}
 
 		while (inputNumber.size() < 6) {
