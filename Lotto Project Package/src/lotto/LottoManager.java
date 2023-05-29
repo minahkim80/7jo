@@ -48,11 +48,27 @@ public class LottoManager {
 			count++;
 		}
 
-		for (int i = 0; i < lottoTickets.size(); i++) {
-			ArrayList<Integer> correctNumbers = checkLottoTicket(lottoTickets.get(i));
-			// 요녀석으로 색을 바꾸게 해줄꺼임
-			System.out.println("맞춘 번호 : " + correctNumbers);
-		}
+// 		for (int i = 0; i < lottoTickets.size(); i++) {
+// 			ArrayList<Integer> correctNumbers = checkLottoTicket(lottoTickets.get(i));
+// 			// 요녀석으로 색을 바꾸게 해줄꺼임
+// 			//색을 일부로 빨간색이나 파란샋으로 하고
+// 			System.out.println("맞춘 번호 : " + correctNumbers);
+// 		}
+// 		for (int i = 0; i < lottoTickets.size(); i++) {
+// 			ArrayList<Integer> correctNumbers = checkLottoTicket(lottoTickets.get(i));
+// 			// 요녀석으로 색을 바꾸게 해줄꺼임
+// 			//색을 일부로 빨간색이나 파란샋으로 하고
+// 			System.out.println("맞춘 번호 : " + correctNumbers);
+// 			for (int j = 0; j < correctNumbers.size(); j++) {
+// 				if (correctNumbers.get(j) == winningNumbers.get(j)) {
+// 					System.out.print("\033[31m"); // 빨간색으로 출력
+// 				} else {
+// 					System.out.print("\033[34m"); // 파란색으로 출력
+// 				}
+// 				System.out.print(correctNumbers.get(j) + " ");
+// 			}
+// 			System.out.println("\033[0m"); // 기본 색상으로 돌아가기
+// 		}
 
 		// 화면에출력하는애.화면에좀뿌려봐(lottoTickets, correctNumbers);
 	}
