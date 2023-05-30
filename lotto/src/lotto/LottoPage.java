@@ -28,7 +28,7 @@ public class LottoPage extends JFrame {
 	private ArrayList<JButton> buttons; // 1 ~ 45 번호 버튼 리스트
 	private ArrayList<JPanel> tickets; // 선택한 로또 티켓 리스트
 	private LottoManager lottoManager;
-	private String choiceType;
+	private String choiceType; // 반자동 ,자동, 수동 선택 파일
 	private JLabel lblTotal;
 
 	public LottoPage(LottoManager lottoManager) {

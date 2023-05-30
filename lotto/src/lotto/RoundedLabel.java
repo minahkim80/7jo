@@ -48,7 +48,7 @@ public class RoundedLabel extends JLabel {
 				this.backgroundColor = Color.decode("#EEEEEE"); // 배경색 설정
 			}
 		} catch (Exception error) {
-			// System.out.println("error : " + error.toString());
+
 		}
 	}
 

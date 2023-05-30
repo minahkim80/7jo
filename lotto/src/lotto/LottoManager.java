@@ -42,7 +42,7 @@ public class LottoManager {
 
 		ArrayList<Integer> correctNumbers = new ArrayList<>();
 
-		// 당첨 번호와 구매 로또 번호를 비교하여 숫자 일치 여부 판단
+		// 당첨 번호와 구매 로또 번호를 비교하여 숫자 일치 여부
 		System.out.println("[내 로또 결과]");
 		for (int i = 0; i < numbers.size(); i++) {
 			if (winnerNumber.contains(numbers.get(i))) {
