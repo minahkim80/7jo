@@ -44,10 +44,13 @@ public class LottoPage extends JFrame {
 		choiceType = "Self"; // Self, Auto, HalfSelf
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		setResizable(false);
 		setBounds(100, 100, 1119, 569);
 
 		// 배경 페이지 ////////////////////////////////////////////////////////////
 		contentPane = new JPanel() {
+
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -309,7 +312,7 @@ public class LottoPage extends JFrame {
 
 			// 삭제버튼
 			JButton btnReset = new JButton();
-			ImageIcon imageCancel = new ImageIcon("images/delete.jpg");
+			ImageIcon imageCancel = new ImageIcon("images/delete1.jpg");
 			ImageIcon resizedIcon = new ImageIcon(
 					imageCancel.getImage().getScaledInstance(54, 42, java.awt.Image.SCALE_SMOOTH));
 			btnReset.setIcon(resizedIcon);

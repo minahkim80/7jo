@@ -82,8 +82,9 @@ public class LottoManager {
 		case 6:
 			System.out.println("1등!");
 			result = 1;
+			// JOptionPane.showConfirmDialog(null, "1등이 될꺼같냐?", "에러발생",
+			// JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
-
 			throw new UnsupportedOperationException("될꺼 같냐?");
 
 		// break;
