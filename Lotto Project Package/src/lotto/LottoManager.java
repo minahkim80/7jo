@@ -48,12 +48,12 @@ public class LottoManager {
 			count++;
 		}
 
-// 		for (int i = 0; i < lottoTickets.size(); i++) {
-// 			ArrayList<Integer> correctNumbers = checkLottoTicket(lottoTickets.get(i));
-// 			// 요녀석으로 색을 바꾸게 해줄꺼임
-// 			//색을 일부로 빨간색이나 파란샋으로 하고
-// 			System.out.println("맞춘 번호 : " + correctNumbers);
-// 		}
+		for (int i = 0; i < lottoTickets.size(); i++) {
+			ArrayList<Integer> correctNumbers = checkLottoTicket(lottoTickets.get(i));
+			// 요녀석으로 색을 바꾸게 해줄꺼임
+			//색을 일부로 빨간색이나 파란샋으로 하고
+			System.out.println("맞춘 번호 : " + correctNumbers);
+		}
 		
 
 
