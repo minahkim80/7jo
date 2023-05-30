@@ -5,8 +5,8 @@ public class LottoControl {
 
 	public static void main(String[] args) {
 		LottoManager lottoManager = new LottoManager();
-		LottoPage lottoPage1 = new LottoPage(lottoManager);
-		lottoPage1.setVisible(true);
+		LottoPage lottoPage = new LottoPage(lottoManager);
+		lottoPage.setVisible(true);
 
 	}
 
