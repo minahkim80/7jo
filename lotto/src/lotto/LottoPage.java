@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 public class LottoPage extends JFrame {
@@ -30,6 +31,11 @@ public class LottoPage extends JFrame {
 	private LottoManager lottoManager;
 	private String choiceType; // 반자동 ,자동, 수동 선택 파일
 	private JLabel lblTotal;
+	JPanel resultPanel;
+
+	JButton btnReset;
+	JButton btnReNum;
+	JButton btnCopy;
 
 	public LottoPage(LottoManager lottoManager) {
 		// 회원이 입력하는 로또 번호 6개
@@ -54,7 +60,7 @@ public class LottoPage extends JFrame {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				// Toolkit을 사용하여 Image 객체 생성
+
 				Toolkit toolkit = Toolkit.getDefaultToolkit();
 
 				Image image = toolkit.getImage("images/bg1.jpg");
@@ -64,6 +70,11 @@ public class LottoPage extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+//		JPanel transparentPanel = new JPanel();
+//      transparentPanel.setBounds(590, 10, 498, 488);
+//      transparentPanel.setOpaque(true);
+//		transparentPanel.setEnabled(true);
 
 		JButton btnPayment_2 = new JButton();
 		JButton btnPayment = new JButton();
@@ -131,8 +142,7 @@ public class LottoPage extends JFrame {
 		btnPayment_2_1.setBounds(40, 319, 173, 113);
 		btnPayment_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "선택 숫자를 제외한 나머지 숫자는 \n 자동으로 입력됩니다 ", "반자동 선택",
-						JOptionPane.INFORMATION_MESSAGE);
+
 				System.out.println("반자동 버튼 클릭 !!!");
 				ImageIcon imageSelf = new ImageIcon("images/self.jpg");
 				btnPayment_2.setIcon(imageSelf);
@@ -176,12 +186,12 @@ public class LottoPage extends JFrame {
 					JButton button = (JButton) source; // JButton으로 형변환
 					String buttonText = button.getClientProperty("number").toString(); // 버튼의 텍스트 값 가져오기
 
-					if (numbers.size() >= 6) {
-						System.out.println("6개 번호 모두 선택하셨습니다.");
-						return;
-					}
-
 					if (button.getClientProperty("isChecked").toString() == "N") {
+						// 번호 6개 모두 골랐으면..
+						if (numbers.size() >= 6) {
+							System.out.println("6개 번호 모두 선택하셨습니다.");
+							return;
+						}
 						ImageIcon imageIcon = new ImageIcon("images/btn_" + buttonText + ".jpg");
 						button.setIcon(imageIcon);
 						button.putClientProperty("isChecked", "Y");
@@ -226,7 +236,7 @@ public class LottoPage extends JFrame {
 		});
 		panel.add(btnResetList);
 
-		// 구매 확인 버튼 - 배열에 입력된 6개의 값을 우측에 뿌려줌
+		// 등록버튼 Action시 우측화면에 번호 뿌려줌
 		JButton btnPlus = new JButton();
 		ImageIcon imagePlus = new ImageIcon("images/set.jpg");
 		btnPlus.setIcon(imagePlus);
@@ -234,6 +244,15 @@ public class LottoPage extends JFrame {
 		btnPlus.setBorderPainted(false);
 		btnPlus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (choiceType == "HalfSelf") {
+
+					if (numbers.size() == 0) {
+						JOptionPane.showMessageDialog(null, "번호를 1개 이상 선택하세요 ", "반자동 선택",
+								JOptionPane.INFORMATION_MESSAGE);
+						return;
+					}
+
+				}
 				if (choiceType == "Self") {
 					if (numbers.size() < 6) {
 						System.out.println("6개 번호를 선택해야 합니다.");
@@ -243,15 +262,17 @@ public class LottoPage extends JFrame {
 					}
 
 				}
-				LottoTicket lottoTicket = lottoManager.createLottoTicket(choiceType, numbers);
 
-				lottoManager.lottoTickets.add(lottoTicket);
 				System.out.println("저장된 로또 티켓 수량 : " + lottoManager.lottoTickets.size());
-				if (lottoManager.lottoTickets.size() > 5) {
+				if (lottoManager.lottoTickets.size() >= 5) {
 					JOptionPane.showMessageDialog(null, "로또 구매는 5장까지 가능합니다.", "구매초과", JOptionPane.INFORMATION_MESSAGE);
 					System.out.println("5개 까지 등록 가능합니다 !!");
+
 					return;
 				}
+
+				LottoTicket lottoTicket = lottoManager.createLottoTicket(choiceType, numbers);
+				lottoManager.lottoTickets.add(lottoTicket);
 				lblTotal.setText(lottoManager.lottoTickets.size() + ",000 원");
 
 				int index = lottoManager.lottoTickets.size() - 1;
@@ -279,24 +300,23 @@ public class LottoPage extends JFrame {
 		buttons.get(0);
 
 		JPanel pnlChoice = new JPanel();
-		pnlChoice.setBounds(606, 93, 490, 339);
+		pnlChoice.setBounds(580, 93, 500, 339);
 		pnlChoice.setOpaque(false);
 
 		// 로또 티켓 리스트
 		for (int i = 0; i < 5; i++) {
 			JPanel choice = new JPanel();
+
 			// choice.setSize(300, 300);
 			// choice.setOpaque(false);
 			choice.setBackground(Color.decode("#ffffff"));
-			choice.setPreferredSize(new Dimension(460, 58));
+			choice.setPreferredSize(new Dimension(500, 58));
 			choice.setLayout(new FlowLayout(FlowLayout.LEFT, -10, 0));
 			JLabel isAuto = new JLabel("   미지정       ");
 			choice.add(isAuto);
 
 			tickets.add(choice);
-			// JLabel ticketNumbers = new JLabel("00 00 00 00 00 00");
-			// choice.add(ticketNumbers);
-			// ticketNumbers.setFont(new Font("굴림", Font.PLAIN, 22));
+
 			RoundedLabel button_1 = new RoundedLabel(0);
 			RoundedLabel button_2 = new RoundedLabel(0);
 			RoundedLabel button_3 = new RoundedLabel(0);
@@ -310,13 +330,14 @@ public class LottoPage extends JFrame {
 			choice.add(button_5);
 			choice.add(button_6);
 
-			// 삭제버튼
 			JButton btnReset = new JButton();
-			ImageIcon imageCancel = new ImageIcon("images/delete1.jpg");
+			JButton btnReNum = new JButton();
+			JButton btnCopy = new JButton();
+			ImageIcon imageCancel = new ImageIcon("images/delete.jpg");
 			ImageIcon resizedIcon = new ImageIcon(
-					imageCancel.getImage().getScaledInstance(54, 42, java.awt.Image.SCALE_SMOOTH));
+					imageCancel.getImage().getScaledInstance(34, 39, java.awt.Image.SCALE_SMOOTH));
 			btnReset.setIcon(resizedIcon);
-			btnReset.setSize(54, 42);
+			btnReset.setSize(34, 39);
 			btnReset.setContentAreaFilled(false); // 버튼의 기본 모양 숨기기
 			btnReset.setBorderPainted(false);
 			btnReset.putClientProperty("index", i);
@@ -339,8 +360,110 @@ public class LottoPage extends JFrame {
 				}
 			});
 
-			choice.add(btnReset);
+			ImageIcon imageCancel1 = new ImageIcon("images/renum.jpg");
+			ImageIcon resizedIcon1 = new ImageIcon(
+					imageCancel1.getImage().getScaledInstance(34, 39, java.awt.Image.SCALE_SMOOTH));
+			btnReNum.setIcon(resizedIcon1);
+			btnReNum.setSize(34, 39);
+			btnReNum.setContentAreaFilled(false); // 버튼의 기본 모양 숨기기
+			btnReNum.setBorderPainted(false);
+			btnReNum.putClientProperty("index", i);
+			btnReNum.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
 
+					Object source = e.getSource(); // 이벤트가 발생한 컴포넌트 가져오기
+					JButton button = (JButton) source; // JButton으로 형변환
+					ImageIcon imageSelf = new ImageIcon("images/self_1.jpg");
+					btnPayment_2.setIcon(imageSelf);
+					ImageIcon imagePayment = new ImageIcon("images/random.jpg");
+					btnPayment.setIcon(imagePayment);
+					ImageIcon imageHalfRandom = new ImageIcon("images/hrandom.jpg");
+					btnPayment_2_1.setIcon(imageHalfRandom);
+					choiceType = "Self";
+
+//					contentPane.add(transparentPanel);
+//					transparentPanel.setEnabled(true);
+					// 버튼 비활성화
+					int index = (Integer) button.getClientProperty("index");
+					System.out.println("index : " + index);
+					numbers.clear();
+					ArrayList<Integer> lottoNumbers = lottoManager.getLottoTickets().get(index).numbers;
+					System.out.println("lottoTicket1 : " + lottoNumbers);
+					for (int i = 0; i < 45; i++) {
+						if (lottoNumbers.contains(i + 1)) {
+							ImageIcon imageIcon = new ImageIcon("images/btn_" + (i + 1) + ".jpg");
+							buttons.get(i).setIcon(imageIcon);
+							buttons.get(i).putClientProperty("isChecked", "Y");
+
+							numbers.add(i + 1);
+						} else {
+							ImageIcon imageIcon = new ImageIcon("images/btn" + (i + 1) + ".jpg");
+							buttons.get(i).setIcon(imageIcon);
+							buttons.get(i).putClientProperty("isChecked", "N");
+						}
+					}
+
+					try {
+						LottoTicket lottoTicket = lottoManager.getLottoTickets().get(index);
+						System.out.println("lottoTicket : " + lottoTicket);
+
+						lottoManager.getLottoTickets().remove(index);
+
+						renderTickets();
+					} catch (Exception error) {
+						System.out.println("인덱스에 lottoTicket 없음");
+					}
+				}
+			});
+
+			ImageIcon imageCancel2 = new ImageIcon("images/copy.jpg");
+			ImageIcon resizedIcon2 = new ImageIcon(
+					imageCancel2.getImage().getScaledInstance(34, 39, java.awt.Image.SCALE_SMOOTH));
+			btnCopy.setIcon(resizedIcon2);
+			btnCopy.setSize(34, 39);
+			btnCopy.setContentAreaFilled(false);
+			btnCopy.setBorderPainted(false);
+			btnCopy.putClientProperty("index", i);
+			/*
+			 * ArrayList<JButton> btnSet = new ArrayList<>(); btnSet.add(btnReset);
+			 * btnSet.add(btnReNum); btnSet.add(btnCopy); ActionListener buttonClickListener
+			 * = new ActionListener() { public void actionPerformed(ActionEvent e) { JButton
+			 * clickedButton = (JButton) e.getSource();
+			 * 
+			 * // 클릭한 버튼을 제외한 나머지 버튼들을 비활성화 for (JButton btnSet : btnSet) { if (btnSet !=
+			 * clickedButton) { btnSet.setEnabled(false); } }
+			 * 
+			 * // 이후에 필요한 동작 수행 // ... } };
+			 */
+			btnCopy.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					if (lottoManager.lottoTickets.size() >= 5) {
+						JOptionPane.showMessageDialog(null, "로또 구매는 5장까지 가능합니다.", "구매초과",
+								JOptionPane.INFORMATION_MESSAGE);
+						System.out.println("5개 까지 등록 가능합니다 !!");
+						return;
+					}
+					Object source = e.getSource();
+					JButton button = (JButton) source;
+					int index = (Integer) button.getClientProperty("index");
+					try {
+						System.out.println("index : " + index);
+						btnCopy.setEnabled(false);
+						ArrayList<Integer> lottoNumbers = lottoManager.getLottoTickets().get(index).numbers;
+						LottoTicket lottoTicket = lottoManager.createLottoTicket(choiceType, lottoNumbers);
+						lottoManager.lottoTickets.add(lottoTicket);
+						lblTotal.setText(lottoManager.lottoTickets.size() + ",000 원");
+
+						renderTickets();
+					} catch (Exception error) {
+						System.out.println("인덱스에 lottoTicket 없음");
+					}
+				}
+			});
+			choice.add(btnReset);
+			choice.add(btnReNum);
+			choice.add(btnCopy);
 			pnlChoice.add(choice);
 		}
 
@@ -360,26 +483,117 @@ public class LottoPage extends JFrame {
 		btnPayment_1.setIcon(imageBuy);
 		btnPayment_1.setContentAreaFilled(false); // 버튼의 기본 모양 숨기기
 		btnPayment_1.setBorderPainted(false);
-		btnPayment_1.setFont(new Font("굴림", Font.PLAIN, 20));
+		// btnPayment_1.setFont(new Font("굴림", Font.PLAIN, 20));
 		btnPayment_1.setBounds(957, 435, 113, 64);
 		btnPayment_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("구매하기 #############################################");
 
+				// 당첨 번호 제외하고 0으로 바꾸기
 				for (int i = 0; i < lottoManager.lottoTickets.size(); i++) {
-					ArrayList<Integer> correctNumbers = lottoManager.checkLottoTicket(lottoManager.lottoTickets.get(i));
-					// 요녀석으로 색을 바꾸게 해줄꺼임
-					System.out.println("맞춘 번호 : " + correctNumbers);
+
+					Component[] components = tickets.get(i).getComponents();
+					// JButton만 선택하여 처리
+					int buttonIndex = 0;
+					for (Component component : components) {
+						if (component instanceof RoundedLabel) {
+							RoundedLabel button = (RoundedLabel) component;
+							// 당첨 번호가 아니면..
+							if (!lottoManager
+									.isCorrectNumber(lottoManager.lottoTickets.get(i).getNumbers().get(buttonIndex))) {
+								button.setText("0");
+							}
+
+							buttonIndex++;
+						} else if (component instanceof JLabel) {
+							int correctNumbers = lottoManager.checkLottoTicket(lottoManager.lottoTickets.get(i));
+							System.out.println(correctNumbers + "등 당첨 !!");
+
+							JLabel type = (JLabel) component;
+							switch (correctNumbers) {
+							case 1:
+								type.setText("   에러       ");
+								break;
+							case 2:
+								type.setText("   2등 당첨       ");
+								break;
+							case 3:
+								type.setText("   3등 당첨      ");
+								break;
+							case 4:
+								type.setText("   4등 당첨       ");
+								break;
+							case 5:
+								type.setText("   5등 당첨      ");
+								break;
+							default:
+								// 공백 추가
+								type.setText("   당첨 없음     ");
+
+								break;
+							}
+						}
+					}
 				}
 
-				// 구매한 내역 초기화
-				lottoManager.lottoTickets.clear();
-				renderTickets();
+				resultPanel.setVisible(true);
+				// 타이머 설정
+				int delay = 15000; // 5초 후에 닫히도록 설정
+				ActionListener taskPerformer = new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						// JPanel을 숨기거나 닫는 작업 수행
+						resultPanel.setVisible(false); // JPanel을 숨깁니다.
 
+						// 구매한 내역 초기화
+						lottoManager.lottoTickets.clear();
+						renderTickets();
+					}
+				};
+				Timer timer = new Timer(delay, taskPerformer);
+				timer.setRepeats(false); // 타이머를 한 번만 실행하도록 설정
+				// 타이머 시작
+				timer.start();
 				System.out.println("##################################################");
 			}
 		});
 		contentPane.add(btnPayment_1);
+
+		// 추첨 결과 영역 ////////////////////////////////////////////////////////////
+		resultPanel = new JPanel();
+		resultPanel.setBounds(28, 19, 498, 488); // 절대 경로로 위치와 크기를 설정합니다.
+		resultPanel.setBackground(Color.decode("#ffffff"));
+		resultPanel.setVisible(false);
+
+		String imagePath = "images/resultMain.jpg";
+		ImageIcon imageIcon = new ImageIcon(imagePath);
+		JLabel imageLabel = new JLabel(imageIcon);
+		imageLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+		resultPanel.add(imageLabel);
+
+		contentPane.add(resultPanel);
+		contentPane.setComponentZOrder(resultPanel, 0);
+
+		JButton btnResetAll = new JButton();
+		btnResetAll.setBounds(982, 37, 87, 41);
+		btnResetAll.setContentAreaFilled(false); // 버튼의 기본 모양 숨기기
+		btnResetAll.setBorderPainted(false);
+		ImageIcon imageCancel = new ImageIcon("images/resetAll.jpg");
+		btnResetAll.setIcon(imageCancel);
+		btnResetAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				numbers.clear();
+				for (int i = 0; i < 45; i++) {
+					ImageIcon imageIcon = new ImageIcon("images/btn" + (i + 1) + ".jpg");
+					buttons.get(i).setIcon(imageIcon);
+					buttons.get(i).putClientProperty("isChecked", "N");
+				}
+
+				lottoManager.lottoTickets.clear();
+				renderTickets();
+			}
+		});
+
+		contentPane.add(btnResetAll);
 
 		setVisible(true);
 	}
@@ -406,9 +620,7 @@ public class LottoPage extends JFrame {
 				for (Component component : components) {
 					if (component instanceof RoundedLabel) {
 						RoundedLabel button = (RoundedLabel) component;
-						// JButton에 대한 작업 수행
-						// System.out.println("button : " + button);
-						// System.out.println("buttonIndex -> " + buttonIndex);
+
 						button.setText(lottoManager.lottoTickets.get(i).getNumbers().get(buttonIndex).toString());
 						buttonIndex++;
 					} else if (component instanceof JLabel) {

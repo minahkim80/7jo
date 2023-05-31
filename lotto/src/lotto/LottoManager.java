@@ -22,7 +22,7 @@ public class LottoManager {
 		this.lottoTickets = lottoTickets;
 	}
 
-	public ArrayList<Integer> checkLottoTicket(LottoTicket lottoTicket) {
+	public int checkLottoTicket(LottoTicket lottoTicket) {
 		ArrayList<Integer> winnerNumber = getWinnerNumbers();
 		int bonusNumber = winnerNumber.get(6);
 		winnerNumber.remove(6);
@@ -57,6 +57,7 @@ public class LottoManager {
 		case 1:
 		case 2:
 			System.out.println("꽝!");
+
 			break;
 
 		case 3:
@@ -90,7 +91,7 @@ public class LottoManager {
 		// break;
 		}
 
-		return correctNumbers;
+		return result;
 	}
 
 	public ArrayList<Integer> getWinnerNumbers() {
@@ -98,6 +99,17 @@ public class LottoManager {
 		ArrayList<Integer> winnerNumbers = new ArrayList<>(Arrays.asList(5, 10, 15, 20, 25, 30, 35));
 
 		return winnerNumbers;
+	}
+
+	public boolean isCorrectNumber(int number) {
+		ArrayList<Integer> correctNumbers = getWinnerNumbers();
+
+		for (int i = 0; i < 6; i++) {
+			if (correctNumbers.indexOf(number) > -1)
+				return true;
+		}
+
+		return false;
 	}
 
 	public LottoTicket createLottoTicket(String type, ArrayList<Integer> numbers) {
