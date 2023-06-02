@@ -81,7 +81,7 @@ public class LottoManager {
 			break;
 
 		case 6:
-			System.out.println("1등!");
+			System.out.println("1등이라고 허망한꿈은 바로 이게 아닐까 싶은데?");
 			result = 1;
 			// JOptionPane.showConfirmDialog(null, "1등이 될꺼같냐?", "에러발생",
 			// JOptionPane.ERROR_MESSAGE);

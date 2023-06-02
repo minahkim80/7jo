@@ -281,7 +281,7 @@ public class LottoPage extends JFrame {
 				LottoTicket lottoTicket = lottoManager.createLottoTicket(choiceType, numbers);
 				lottoManager.lottoTickets.add(lottoTicket);
 				lblTotal.setText(lottoManager.lottoTickets.size() + ",000 원");
-
+				
 				int index = lottoManager.lottoTickets.size() - 1;
 
 				System.out.println(lottoManager.lottoTickets.get(index).getNumbers());
@@ -549,7 +549,15 @@ public class LottoPage extends JFrame {
 		btnResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("결과보기 #############################################");
+				for (int i = 0; i < 45; i++) {
+				    buttons.get(i).setEnabled(false);
+				}
+				btnSemiAuto.setEnabled(false);
 				btnResult.setEnabled(false);
+				btnAuot.setEnabled(false);
+				btnSelf.setEnabled(false);
+				btnResetList.setEnabled(false);
+				btnPlus.setEnabled(false);
 				// 당첨 번호 제외하고 0으로 바꾸기
 				for (int i = 0; i < lottoManager.lottoTickets.size(); i++) {
 					Component[] components = tickets.get(i).getComponents();
@@ -607,7 +615,9 @@ public class LottoPage extends JFrame {
 						// 구매한 내역 초기화
 						lottoManager.lottoTickets.clear();
 						renderTickets();
-
+						btnSelf.setEnabled(true);
+						btnSemiAuto.setEnabled(true);
+						btnAuot.setEnabled(true);
 						btnResetList.setEnabled(true);
 						btnPlus.setEnabled(true);
 						btnResetAll.setEnabled(true);
@@ -617,21 +627,29 @@ public class LottoPage extends JFrame {
 							btnReNums.get(i).setEnabled(true);
 							btnCopys.get(i).setEnabled(true);
 						}
-
-					}
+						for (int i = 0; i < 45; i++) {
+						    buttons.get(i).setEnabled(true);
+						}
+						    
+						}
+					
+				
+				
 				};
 				Timer timer = new Timer(delay, taskPerformer);
 				timer.setRepeats(false); // 타이머를 한 번만 실행하도록 설정
 				// 타이머 시작
 				timer.start();
 				System.out.println("##################################################");
+				
 			}
 		});
 		contentPane.add(btnResult);
-
+		
 /////////////구매 버튼 클릭시////////////////////////////////////////////////////	
 		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			    	
 				System.out.println("구매하기 #############################################");
 				JOptionPane.showMessageDialog(null, "구매가 완료 되었습니다", "구매 완료", JOptionPane.INFORMATION_MESSAGE);
 				lblTotal.setText("      0원");
@@ -642,12 +660,15 @@ public class LottoPage extends JFrame {
 					btnReNums.get(j).setEnabled(false);
 					btnCopys.get(j).setEnabled(false);
 				}
+				
 				btnBuy.setEnabled(false);
 				btnPlus.setEnabled(false);
 				btnResetList.setEnabled(false);
 				System.out.println("##################################################");
 			}
+			
 		});
+		
 		contentPane.add(btnBuy);
 
 //////////////// 오른쪽 추첨 결과 영역 ////////////////////////////////////////////////////////////
