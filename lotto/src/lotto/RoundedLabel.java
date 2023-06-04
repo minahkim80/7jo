@@ -16,6 +16,7 @@ public class RoundedLabel extends JLabel {
 	private Color backgroundColor;
 
 	public RoundedLabel(int number) {
+
 		this.number = number;
 		this.backgroundColor = Color.decode("#EEEEEE");
 
